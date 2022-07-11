@@ -38,12 +38,12 @@ def profile(request, username):
     page_obj = post_paginator(request, post_list)
     following = False
     if follower.is_authenticated:
-        following = Follow.objects.filter(user=follower, author=author).exists()
+        following = Follow.objects.filter(
+            user=follower, author=author).exists()
     context = {'page_obj': page_obj,
                'author': author,
                'following': following}
     return render(request, template, context)
-
 
 
 def post_detail(request, post_id):
@@ -133,7 +133,7 @@ def profile_follow(request, username):
     follower = request.user
     author = User.objects.get(username=username)
     follow_exist = Follow.objects.filter(
-        user=follower,author=author).exists()
+        user=follower, author=author).exists()
     if not follow_exist and follower != author:
         Follow.objects.create(user=follower, author=author)
     return redirect('posts:profile', username=author)

@@ -381,5 +381,6 @@ class ViewsFollowTest(TestCase):
                     kwargs={'username': 'author'}))
         count_after = self.follower.follower.count()
         self.assertEqual(count_after, count_before)
-        self.assertRedirects(response_second_follow, reverse('posts:profile',
-                    kwargs={'username': 'author'}))
+        self.assertRedirects(response_second_follow,
+                             reverse('posts:profile',
+                                     kwargs={'username': 'author'}))
