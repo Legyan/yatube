@@ -54,7 +54,7 @@ def post_detail(request, post_id):
         'group',
         'author').filter(author=post.author).count()
     form = CommentForm(request.POST or None)
-    comments_list = Comment.objects.filter(post_id=post_id)
+    comments_list = post.comments.select_related('post', 'author')
     context = {'post': post,
                'count': count,
                'form': form,
@@ -71,8 +71,9 @@ def post_create(request):
                         files=request.FILES or None)
         if form.is_valid():
             username = request.user
-            form.cleaned_data['author'] = username
-            Post.objects.create(**form.cleaned_data)
+            post = form.save(commit=False)
+            post.author = username
+            post.save()
             return redirect('posts:profile', username)
     form = PostForm()
     context = {'form': form}
