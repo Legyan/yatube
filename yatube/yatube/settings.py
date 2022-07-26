@@ -26,6 +26,8 @@ SECRET_KEY = 'u+6bez771z80*-ad&uw_pqdvk-57!d1v-6=0wn3fagij-xois!'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'www.legyan.pythonanywhere.com',
+    'legyan.pythonanywhere.com',
     'localhost',
     '127.0.0.1',
     '[::1]',
